@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+<result>  
+	
+	<enum name="MsgID" comment="消息id">  
+		<member name="CS_REQ_LOGIN" type="1" comment="请求登录"/>  
+		<member name="SC_RES_LOGIN" type="2" comment="返回登录"/>  
+	</enum>  
+	
+	<enum name="ConstDefine" comment="常量">  
+		<member name="ACC_LEN" type="32" comment="用户名"/>
+		<member name="ROLE_NAME_LEN" type="32" comment="角色名"/>
+		<member name="PWD_LEN" type="32" comment="密码"/>
+		<member name="ROLE_INFO_NUM" type="5" comment="密码"/>
+		<member name="FRIEND_LEN" type="50" comment="好友"/>
+		<member name="ITEM_LEN" type="100" comment="道具"/>
+	</enum>  
+	
+	<struct name="AccInfo" comment="账号信息">  
+		<member name="Acc" type="char" length="ACC_LEN" comment="用户名" tag="1" />  
+		<member name="diamond" type="uint32_t" comment="钻石" tag="2" />
+	</struct> 
+	
+	<struct name="FriendInfo" comment="好友信息"> 
+		<member name="Guid" type="uint64_t" comment="唯一id" tag="1" />
+		<member name="Friend" type="uint64_t" length="FRIEND_LEN" ref="FriendNum" comment="好友的好友信息" tag="2" />
+	</struct> 
+	
+	<struct name="ItemInfo" comment="道具信息"> 
+		<member name="Id" type="uint32_t" comment="配置id" tag="1" />
+	</struct> 
+	
+	<struct name="RoleInfo" comment="玩家信息">  
+		<member name="Guid" type="uint64_t" comment="唯一id" tag="1" />
+		<member name="Name" type="char" length="ROLE_NAME_LEN" comment="角色名" tag="2" />
+		<member name="Hp" type="uint32_t" comment="血量" tag="3" />
+		<member name="Mp" type="uint32_t" comment="魔量" tag="4" />
+		<member name="X" type="float" comment="x" tag="5" />
+		<member name="Y" type="float" comment="y" tag="6" />
+		<member name="FriendInfo" type="FriendInfo" length="FRIEND_LEN" ref="FriendInfoNum" comment="好友信息" tag="7" />
+		<member name="ItemInfo" type="ItemInfo" length="ITEM_LEN" ref="ItemInfoNum" comment="道具信息" tag="8" />
+	</struct> 
+	
+	<struct name="CSReqLogin" comment="请求登录">  
+		<member name="Acc" type="char" length="ACC_LEN" comment="用户名" tag="1" />  
+		<member name="Pwd" type="char" length="PWD_LEN" comment="密码" tag="2" /> 
+	</struct>  
+	
+	<struct name="SCResLogin" comment="返回登录">  
+		<member name="Ret" type="uint8_t" comment="结果" tag="1" />  
+		<member name="AccInfo" type="AccInfo" comment="账号信息" tag="2" />  
+		<member name="RoleInfo" type="RoleInfo" length="ROLE_INFO_NUM" ref="RoleInfoNum" comment="玩家信息" tag="3" />  
+	</struct>  
+	
+	<struct name="NetMsgHead" comment="网络头消息">  
+		<member name="Time" type="uint32_t" comment="时间戳" tag="1" />  
+		<member name="Index" type="uint32_t" comment="序列号" tag="2" />  
+	</struct>  
+	
+	<struct name="NetMsgPara" comment="网络消息内容" type="union"> 
+		<member name="CSReqLogin" type="CSReqLogin" ref="CS_REQ_LOGIN" comment="请求登录"/>  
+		<member name="SCResLogin" type="SCResLogin" ref="SC_RES_LOGIN" comment="返回登录"/>  
+	</struct>  
+	
+	<struct name="NetMsg" comment="网络消息">  
+		<member name="NetMsgHead" type="NetMsgHead" comment="网络头消息" tag="1" />
+		<member name="NetMsgPara" type="NetMsgPara" comment="网络消息内容" tag="2" />  
+	</struct>  
+	
+</result>  
