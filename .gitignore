@@ -1,0 +1,27 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+libyang
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories
+# vendor/
+
+# Packaging and build outputs
+pack/
+pack.zip
+dist/
+build/
+
+# Editor / OS files
+.DS_Store
+.idea/
+.vscode/
